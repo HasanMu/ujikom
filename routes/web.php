@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes(['register' => false, 'login' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin', 'auth']], function () {
+    Route::get('/', function () {
+        return false;
+    });
+    Route::resource('user', 'UserController');
+});
