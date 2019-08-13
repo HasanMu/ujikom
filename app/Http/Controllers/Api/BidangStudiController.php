@@ -29,13 +29,23 @@ class BidangStudiController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'kode'  => 'required|unique:bidang_studis',
+            'nama'  => 'required'
+        ]);
+
         $bidang_studi = new BidangStudi;
 
         $bidang_studi->kode = $request->kode;
         $bidang_studi->nama = $request->nama;
         $bidang_studi->save();
 
-        return response()->json($bidang_studi, 200);
+        $response = [
+            'success'   => true,
+            'message'   => 'Data berhasil di simpan!'
+        ];
+
+        return response()->json($response, 200);
     }
 
     /**

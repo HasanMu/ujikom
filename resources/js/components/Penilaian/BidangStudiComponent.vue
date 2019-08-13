@@ -48,13 +48,28 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
-                    <div class="modal-body">
-                        Body
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Tidak Jadi</button>
-                        <button type="button" class="btn btn-success">Tambah</button>
-                    </div>
+                    <form @submit.prevent="createBidangStudi">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Kode</label>
+                                <input v-model="form.kode" type="text" name="kode"
+                                    placeholder="Masukkan Kode"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('kode') }">
+                                <has-error :form="form" field="kode"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama</label>
+                                <input v-model="form.nama" type="text" name="nama"
+                                    placeholder="Nama bidang studi"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('nama') }">
+                                <has-error :form="form" field="nama"></has-error>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Tidak Jadi</button>
+                            <button type="submit" class="btn btn-success">Tambah</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -71,7 +86,11 @@
 
         data() {
             return {
-                users: []
+                users: [],
+                form: new Form({
+                    kode: '',
+                    nama: ''
+                })
             }
         },
 
@@ -89,6 +108,10 @@
                 .catch((err) => {
                     console.log(err);
                 });
+            },
+
+            createBidangStudi () {
+                this.form.post('/api/bidang-studi')
             }
         },
     }
