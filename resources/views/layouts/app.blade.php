@@ -23,9 +23,15 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                @role('admin')
+                    <router-link class="navbar-brand" to="/admin/home">
+                        Sistem Penilaian
+                    </router-link>
+                @else
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                @endrole
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -33,7 +39,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @role('admin')
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/admin/bidang-studi">{{ __('Bidang Studi') }}</router-link>
+                        </li>
+                        @endrole
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -55,9 +65,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <router-link class="dropdown-item" to="/admin/profile">
+                                        <i class="fas fa-user"></i> Profile</router-link>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt"></i>
                                         {{ __('Logout') }}
                                     </a>
 

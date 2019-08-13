@@ -17,10 +17,8 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false, 'login' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin', 'auth']], function () {
-    Route::get('/', function () {
-        return false;
-    });
-    Route::resource('user', 'UserController');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin', 'cors']], function () {
+    // Route::resource('user', 'UserController');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('{path}', 'HomeController@index')->where('path', '([A-z\d-/_.]+)?');
 });

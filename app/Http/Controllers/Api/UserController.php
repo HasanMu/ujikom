@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\User;
-use App\Role;
 use Illuminate\Http\Request;
+use App\Role;
+use App\User;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -15,15 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-
-        $response = [
-            'success' => true,
-            'data'    => $user,
-            'message' => 'Data semua users'
-        ];
-
-        return response()->json($response, 200);
+        //
     }
 
     /**
@@ -44,16 +37,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        $namaRole = 'admin'; // Disini Desripsikan nama role nya yang akan di pilih [Table = Roles];
+        $role = Role::where('name', $namaRole)->first(); // mengambil nama role
+
+        $user->attachRole($role); // User yang telah dibuat, sekaligus diberikan sebuah rolenya sekaligus
+
+        $response = [
+            'success' => true,
+            'data'    => $user,
+            'message' => 'Data user baru dengan nama '.$request->name.' berhasil ditambahkan'
+        ];
+
+        return response()->json($response, 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
         //
     }
@@ -61,10 +72,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
         //
     }
@@ -73,10 +84,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -84,10 +95,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
     }
