@@ -20,7 +20,7 @@ class UserAndRolesSeedeer extends Seeder
         $new_role->description = "Khusus Untuk Admin";
         $new_role->save();
 
-        $this->command->writeln('<info>Role user dengan nama : Admin . berhasil dibuat!</info>');
+        $this->command->writeln('Role user dengan nama : Admin . berhasil dibuat!');
 
         $new_user = new User;
 
@@ -34,6 +34,6 @@ class UserAndRolesSeedeer extends Seeder
 
         $new_user->attachRole($role);
 
-        $this->command->writeln('<info></info>User dengan email : admin@mail.com . berhasil dibuat!<info>');
+        $this->command->writeln('User dengan email : admin@mail.com . berhasil dibuat!');
     }
 }
