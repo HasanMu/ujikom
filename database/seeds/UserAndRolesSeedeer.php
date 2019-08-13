@@ -2,6 +2,7 @@
 
 use App\Role;
 use App\User;
+use Illuminate\Console\Command;
 use Illuminate\Database\Seeder;
 
 class UserAndRolesSeedeer extends Seeder
