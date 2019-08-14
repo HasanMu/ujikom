@@ -16,7 +16,7 @@ class BidangStudiController extends Controller
      */
     public function index()
     {
-        $bidang_studi = BidangStudi::paginate(5);
+        $bidang_studi = BidangStudi::orderBy('created_at', 'desc')->paginate(5);
 
         return BidangStudiResource::collection($bidang_studi);
     }
@@ -29,10 +29,15 @@ class BidangStudiController extends Controller
      */
     public function store(Request $request)
     {
+        $custom_message = [
+            'required'  => 'Bidang :attribute harus diisi',
+            'unique'    => 'Bidang :attribute sudah terdaftar'
+        ];
+
         $this->validate($request, [
             'kode'  => 'required|unique:bidang_studis',
             'nama'  => 'required'
-        ]);
+        ], $custom_message);
 
         $bidang_studi = new BidangStudi;
 
@@ -68,7 +73,18 @@ class BidangStudiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $bidang_studi = BidangStudi::findOrFail($id);
+
+        $bidang_studi->kode = $request->kode;
+        $bidang_studi->nama = $request->nama;
+        $bidang_studi->save();
+
+        $response = [
+            'success'   => true,
+            'message'   => 'Data berhasil di ubah!'
+        ];
+
+        return response()->json($response, 200);
     }
 
     /**
@@ -79,6 +95,8 @@ class BidangStudiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bidang_studi = BidangStudi::findOrFail($id)->delete();
+
+        return ['message' => 'Berhasil masuk method destroy!'];
     }
 }

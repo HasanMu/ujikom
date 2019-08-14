@@ -9,11 +9,22 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
+import moment from 'moment'
+import Swal from 'sweetalert2'
+import VueProgressBar from 'vue-progressbar'
 import { Form, HasError, AlertError } from 'vform'
 
 window.Form = Form;
+window.Fire = new Vue();
+window.Swal = Swal;
 
 Vue.use(VueRouter)
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '4px'
+})
+
 
 let routes = [
     { path: '/admin/home', component: require('./components/ExampleComponent.vue').default },
