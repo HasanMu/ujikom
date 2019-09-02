@@ -1843,6 +1843,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    // Mendapatkan semua data bidang studi
     getBidangStudi: function getBidangStudi() {
       var _this2 = this;
 
@@ -1852,12 +1853,15 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    // Menampilkan modal tambah data
     addModal: function addModal() {
+      this.form.clear();
       this.editMode = false;
       this.form.reset();
       $('.modal-title').html('Tambah Data');
       $('#modal').modal('show');
     },
+    // Mengirim permintaan untuk tambah data
     createBidangStudi: function createBidangStudi() {
       var _this3 = this;
 
@@ -1878,13 +1882,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    // Menampilkan modal edit data
     editModal: function editModal(data) {
+      this.form.clear();
       this.editMode = true;
       this.form.reset();
       $('.modal-title').html('Edit Data');
       $('#modal').modal('show');
       this.form.fill(data);
     },
+    // Mengirim permintaan untuk ubah data
     updateBidangStudi: function updateBidangStudi(id) {
       var _this4 = this;
 
@@ -1900,6 +1907,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
+    // Mengirim permintaan untuk ubah data
     deleteBidangStudi: function deleteBidangStudi(id) {
       var _this5 = this;
 
@@ -1921,6 +1929,541 @@ __webpack_require__.r(__webpack_exports__);
             Fire.$emit('afterCreate');
 
             _this5.$Progress.finish(); // console.log(res);
+
+          })["catch"](function (err) {
+            Swal.fire({
+              type: 'error',
+              title: 'Upss...',
+              text: 'Sepertinya ada sesuatu yang salah!'
+            });
+            console.log(err);
+          });
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      kompkeah: [],
+      bidang_studi: [],
+      editMode: true,
+      form: new Form({
+        id: '',
+        kode: '',
+        bidang_id: '',
+        nama: ''
+      })
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.getKompKeah();
+    this.getBidangStudi();
+    Fire.$on('afterCreate', function () {
+      _this.getKompKeah();
+
+      _this.getBidangStudi();
+    });
+  },
+  methods: {
+    // Mendapatkan semua data kompetensi keahlian
+    getKompKeah: function getKompKeah() {
+      var _this2 = this;
+
+      axios.get('/api/kompetensi-keahlian').then(function (res) {
+        _this2.kompkeah = res.data; // console.log(res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    // Mendapatkan semua data bidang studi
+    getBidangStudi: function getBidangStudi() {
+      var _this3 = this;
+
+      axios.get('/api/bidang-studis').then(function (res) {
+        _this3.bidang_studi = res.data;
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    // Menampilkan modal tambah data
+    addModal: function addModal() {
+      this.form.clear();
+      this.editMode = false;
+      this.form.reset();
+      $('.modal-title').html('Tambah Data');
+      $('#modal').modal('show');
+    },
+    // Mengirim permintaan untuk tambah data
+    createKompKeah: function createKompKeah() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.post('/api/kompetensi-keahlian').then(function (res) {
+        Fire.$emit('afterCreate');
+        $('#modal').modal('hide');
+
+        _this4.$Progress.finish();
+
+        Swal.fire('Berhasil!', res.data.message, 'success');
+      })["catch"](function (err) {
+        // Swal.fire({
+        //     type: 'error',
+        //     title: 'Upss...',
+        //     text: 'Sepertinya ada sesuatu yang salah!',
+        // });
+        console.log(err);
+      });
+    },
+    // Menampilkan modal edit data
+    editModal: function editModal(data) {
+      this.form.clear();
+      this.editMode = true;
+      this.form.reset();
+      $('.modal-title').html('Edit Data');
+      $('#modal').modal('show');
+      this.form.fill(data);
+    },
+    // Mengirim permintaan untuk ubah data
+    updateKompKeah: function updateKompKeah(id) {
+      var _this5 = this;
+
+      // console.log('Update bidang studi');
+      this.form.put('/api/kompetensi-keahlian/' + this.form.id).then(function (res) {
+        Fire.$emit('afterCreate');
+        $('#modal').modal('hide');
+
+        _this5.$Progress.finish();
+
+        Swal.fire('Berhasil!', res.data.message, 'success');
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    // Mengirim permintaan untuk ubah data
+    deleteBidangStudi: function deleteBidangStudi(id) {
+      var _this6 = this;
+
+      Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Data akan dihapus permanen!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Tidak jadi'
+      }).then(function (result) {
+        if (result.value) {
+          _this6.$Progress.start();
+
+          _this6.form["delete"]('/api/kompetensi-keahlian/' + id).then(function (res) {
+            Swal.fire('Berhasil!', res.data.message, 'success');
+            Fire.$emit('afterCreate');
+
+            _this6.$Progress.finish(); // console.log(res);
+
+          })["catch"](function (err) {
+            Swal.fire({
+              type: 'error',
+              title: 'Upss...',
+              text: 'Sepertinya ada sesuatu yang salah!'
+            });
+            console.log(err);
+          });
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      siswa: [],
+      kompetensi_keahlian: [],
+      editMode: true,
+      form: new Form({
+        id: '',
+        nisn: '',
+        kompetensi_id: '',
+        nama: '',
+        alamat: '',
+        tgl_lahir: '',
+        foto: ''
+      })
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.getSiswa();
+    this.getKompKeah();
+    Fire.$on('afterCreate', function () {
+      _this.getSiswa();
+
+      _this.getKompKeah();
+    });
+  },
+  methods: {
+    // Mendapatkan semua data kompetensi keahlian
+    getSiswa: function getSiswa() {
+      var _this2 = this;
+
+      axios.get('/api/siswa').then(function (res) {
+        _this2.kompkeah = res.data; // console.log(res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    // Mendapatkan semua data bidang studi
+    getKompKeah: function getKompKeah() {
+      var _this3 = this;
+
+      axios.get('/api/kompetensi-keahlian').then(function (res) {
+        _this3.kompetensi_keahlian = res.data;
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    // Menampilkan modal tambah data
+    addModal: function addModal() {
+      this.form.clear();
+      this.editMode = false;
+      this.form.reset();
+      $('.modal-title').html('Tambah Data');
+      $('#modal').modal('show');
+    },
+    // Mengirim permintaan untuk tambah data
+    createKompKeah: function createKompKeah() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.form.post('/api/kompetensi-keahlian').then(function (res) {
+        Fire.$emit('afterCreate');
+        $('#modal').modal('hide');
+
+        _this4.$Progress.finish();
+
+        Swal.fire('Berhasil!', res.data.message, 'success');
+      })["catch"](function (err) {
+        // Swal.fire({
+        //     type: 'error',
+        //     title: 'Upss...',
+        //     text: 'Sepertinya ada sesuatu yang salah!',
+        // });
+        console.log(err);
+      });
+    },
+    // Menampilkan modal edit data
+    editModal: function editModal(data) {
+      this.form.clear();
+      this.editMode = true;
+      this.form.reset();
+      $('.modal-title').html('Edit Data');
+      $('#modal').modal('show');
+      this.form.fill(data);
+    },
+    // Mengirim permintaan untuk ubah data
+    updateKompKeah: function updateKompKeah(id) {
+      var _this5 = this;
+
+      // console.log('Update bidang studi');
+      this.form.put('/api/kompetensi-keahlian/' + this.form.id).then(function (res) {
+        Fire.$emit('afterCreate');
+        $('#modal').modal('hide');
+
+        _this5.$Progress.finish();
+
+        Swal.fire('Berhasil!', res.data.message, 'success');
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    // Mengirim permintaan untuk ubah data
+    deleteBidangStudi: function deleteBidangStudi(id) {
+      var _this6 = this;
+
+      Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Data akan dihapus permanen!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Tidak jadi'
+      }).then(function (result) {
+        if (result.value) {
+          _this6.$Progress.start();
+
+          _this6.form["delete"]('/api/kompetensi-keahlian/' + id).then(function (res) {
+            Swal.fire('Berhasil!', res.data.message, 'success');
+            Fire.$emit('afterCreate');
+
+            _this6.$Progress.finish(); // console.log(res);
 
           })["catch"](function (err) {
             Swal.fire({
@@ -59153,6 +59696,912 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "card shadow-sm p-1 mb-5 bg-white rounded" }, [
+          _c("div", { staticClass: "card-header text-white bg-dark" }, [
+            _c("div", { staticClass: "d-flex bd-highlight mb-10" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "p-2 bd-highlight" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-light btn-sm",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.addModal()
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus" }),
+                    _vm._v(" Data Baru\n                            ")
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.kompkeah, function(kk) {
+                  return _c("tr", { key: kk.id }, [
+                    _c("td", [_vm._v(_vm._s(kk.kode))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(kk.bidangstudi.nama))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(kk.nama))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href: "javascript:void(0)",
+                            title: "Edit Data"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.editModal(kk)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      ),
+                      _vm._v(
+                        "\n                                     /\n                                    "
+                      ),
+                      _c(
+                        "a",
+                        {
+                          staticStyle: { color: "red" },
+                          attrs: {
+                            href: "javascript:void(0)",
+                            "data-toggle": "tooltip",
+                            title: "Hapus Data"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteBidangStudi(kk.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash-alt" })]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modelTitleId",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editMode ? _vm.updateKompKeah() : _vm.createKompKeah()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Kode")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.kode,
+                              expression: "form.kode"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("kode") },
+                          attrs: {
+                            type: "text",
+                            name: "kode",
+                            placeholder: "Masukkan Kode"
+                          },
+                          domProps: { value: _vm.form.kode },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "kode", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "kode" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Bidang Studi")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.bidang_id,
+                                expression: "form.bidang_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("bidang_id")
+                            },
+                            attrs: { name: "bidang_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "bidang_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.bidang_studi, function(bd) {
+                            return _c(
+                              "option",
+                              { key: bd.id, domProps: { value: bd.id } },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(bd.nama) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "bidang_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Nama")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.nama,
+                              expression: "form.nama"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("nama") },
+                          attrs: {
+                            type: "text",
+                            name: "nama",
+                            placeholder: "Nama bidang studi"
+                          },
+                          domProps: { value: _vm.form.nama },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "nama", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "nama" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-light",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Tidak Jadi")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Tambah")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Edit")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mr-auto p-2 bd-highlight" }, [
+      _c("b", [_vm._v("Data Kompetensi Keahlian")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Kode")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nama")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Bidang Studi")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Aksi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Tambah Data")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=template&id=5084f942&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=template&id=5084f942& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "card shadow-sm p-1 mb-5 bg-white rounded" }, [
+          _c("div", { staticClass: "card-header text-white bg-dark" }, [
+            _c("div", { staticClass: "d-flex bd-highlight mb-10" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "p-2 bd-highlight" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-light btn-sm",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.addModal()
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-plus" }),
+                    _vm._v(" Data Baru\n                            ")
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.kompkeah, function(kk) {
+                  return _c("tr", { key: kk.id }, [
+                    _c("td", [_vm._v(_vm._s(kk.kode))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(kk.bidangstudi.nama))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(kk.nama))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href: "javascript:void(0)",
+                            title: "Edit Data"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.editModal(kk)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      ),
+                      _vm._v(
+                        "\n                                     /\n                                    "
+                      ),
+                      _c(
+                        "a",
+                        {
+                          staticStyle: { color: "red" },
+                          attrs: {
+                            href: "javascript:void(0)",
+                            "data-toggle": "tooltip",
+                            title: "Hapus Data"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteBidangStudi(kk.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash-alt" })]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "modal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "modelTitleId",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editMode ? _vm.updateKompKeah() : _vm.createKompKeah()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("NISN")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.nisn,
+                              expression: "form.nisn"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("nisn") },
+                          attrs: {
+                            type: "text",
+                            name: "nisn",
+                            placeholder: "Masukkan NISN"
+                          },
+                          domProps: { value: _vm.form.nisn },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "nisn", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "nisn" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Nama Kompetensi")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.kompetensi_id,
+                                expression: "form.kompetensi_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has("kompetensi_id")
+                            },
+                            attrs: { name: "kompetensi_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "kompetensi_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.kompetensi_keahlian, function(bd) {
+                            return _c(
+                              "option",
+                              { key: bd.id, domProps: { value: bd.id } },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(bd.nama) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "kompetensi_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Nama")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.nama,
+                              expression: "form.nama"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("nama") },
+                          attrs: {
+                            type: "text",
+                            name: "nama",
+                            placeholder: "Nama bidang studi"
+                          },
+                          domProps: { value: _vm.form.nama },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "nama", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "nama" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Alamat")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.alamat,
+                              expression: "form.alamat"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("alamat")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "alamat",
+                            placeholder: "Alamat"
+                          },
+                          domProps: { value: _vm.form.alamat },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "alamat", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "alamat" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Tanggal Lahir")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.tgl_lahir,
+                              expression: "form.tgl_lahir"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("tgl_lahir")
+                          },
+                          attrs: {
+                            type: "date",
+                            name: "tgl_lahir",
+                            placeholder: "tgl_lahir bidang studi"
+                          },
+                          domProps: { value: _vm.form.tgl_lahir },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "tgl_lahir",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "tgl_lahir" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Foto")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.foto,
+                              expression: "form.foto"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("foto") },
+                          attrs: { type: "text", name: "foto" },
+                          domProps: { value: _vm.form.foto },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "foto", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "foto" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-light",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Tidak Jadi")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Tambah")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Edit")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mr-auto p-2 bd-highlight" }, [
+      _c("b", [_vm._v("Data Siswa")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("NISN")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nama Kompetensi")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nama")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tanggal Lahir")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Foto")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Aksi")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Tambah Data")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProfileComponent.vue?vue&type=template&id=a8276c82&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProfileComponent.vue?vue&type=template&id=a8276c82& ***!
@@ -74248,6 +75697,12 @@ var routes = [{
 }, {
   path: '/admin/bidang-studi',
   component: __webpack_require__(/*! ./components/Penilaian/BidangStudiComponent.vue */ "./resources/js/components/Penilaian/BidangStudiComponent.vue")["default"]
+}, {
+  path: '/admin/kompetensi-keahlian',
+  component: __webpack_require__(/*! ./components/Penilaian/KompetensiKeahlianComponent.vue */ "./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue")["default"]
+}, {
+  path: '/admin/siswa',
+  component: __webpack_require__(/*! ./components/Penilaian/SiswaComponent.vue */ "./resources/js/components/Penilaian/SiswaComponent.vue")["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   mode: 'history',
@@ -74472,6 +75927,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BidangStudiComponent_vue_vue_type_template_id_8a827dac___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BidangStudiComponent_vue_vue_type_template_id_8a827dac___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _KompetensiKeahlianComponent_vue_vue_type_template_id_7fbaea64___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64& */ "./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64&");
+/* harmony import */ var _KompetensiKeahlianComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./KompetensiKeahlianComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _KompetensiKeahlianComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _KompetensiKeahlianComponent_vue_vue_type_template_id_7fbaea64___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _KompetensiKeahlianComponent_vue_vue_type_template_id_7fbaea64___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Penilaian/KompetensiKeahlianComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KompetensiKeahlianComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./KompetensiKeahlianComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KompetensiKeahlianComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KompetensiKeahlianComponent_vue_vue_type_template_id_7fbaea64___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/KompetensiKeahlianComponent.vue?vue&type=template&id=7fbaea64&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KompetensiKeahlianComponent_vue_vue_type_template_id_7fbaea64___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KompetensiKeahlianComponent_vue_vue_type_template_id_7fbaea64___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Penilaian/SiswaComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/Penilaian/SiswaComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SiswaComponent_vue_vue_type_template_id_5084f942___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SiswaComponent.vue?vue&type=template&id=5084f942& */ "./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=template&id=5084f942&");
+/* harmony import */ var _SiswaComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SiswaComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SiswaComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SiswaComponent_vue_vue_type_template_id_5084f942___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SiswaComponent_vue_vue_type_template_id_5084f942___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Penilaian/SiswaComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SiswaComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./SiswaComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SiswaComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=template&id=5084f942&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=template&id=5084f942& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SiswaComponent_vue_vue_type_template_id_5084f942___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./SiswaComponent.vue?vue&type=template&id=5084f942& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Penilaian/SiswaComponent.vue?vue&type=template&id=5084f942&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SiswaComponent_vue_vue_type_template_id_5084f942___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SiswaComponent_vue_vue_type_template_id_5084f942___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

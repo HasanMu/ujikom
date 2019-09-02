@@ -20,4 +20,8 @@ use Illuminate\Http\Request;
 Route::group(['as' => 'api.'], function () {
     Route::resource('user', 'Api\UserController');
     Route::apiResource('bidang-studi', 'Api\BidangStudiController');
+    Route::get('bidang-studis', function () {
+        return \App\BidangStudi::all();
+    });
+    Route::apiResource('kompetensi-keahlian', 'Api\KompetensiKeahlianController');
 });

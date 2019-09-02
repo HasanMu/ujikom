@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BidangStudiResource;
-use App\BidangStudi;
+use App\KompetensiKeahlian;
 
-class BidangStudiController extends Controller
+class KompetensiKeahlianController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,7 @@ class BidangStudiController extends Controller
      */
     public function index()
     {
-        $bidang_studi = BidangStudi::orderBy('created_at', 'desc')->paginate(5);
-
-        return BidangStudiResource::collection($bidang_studi);
+        return KompetensiKeahlian::orderBy('created_at', 'desc')->with('bidangstudi')->get();
     }
 
     /**
@@ -31,23 +28,25 @@ class BidangStudiController extends Controller
     {
         $custom_message = [
             'required'  => 'Bidang :attribute harus diisi',
-            'unique'    => 'Bidang :attribute sudah terdaftar'
+            'unique'    => 'Bidang :attribute sudah terdaftar',
         ];
 
         $this->validate($request, [
-            'kode'  => 'required|unique:bidang_studis',
-            'nama'  => 'required|unique:bidang_studis'
+            'kode'  => 'required|unique:kompetensi_keahlians',
+            'bidang_id' => 'required',
+            'nama'  => 'required|unique:kompetensi_keahlians'
         ], $custom_message);
 
-        $bidang_studi = new BidangStudi;
+        $kompkeah = new KompetensiKeahlian;
 
-        $bidang_studi->kode = $request->kode;
-        $bidang_studi->nama = $request->nama;
-        $bidang_studi->save();
+        $kompkeah->kode = $request->kode;
+        $kompkeah->bidang_id = $request->bidang_id;
+        $kompkeah->nama = $request->nama;
+        $kompkeah->save();
 
         $response = [
             'success'   => true,
-            'message'   => 'Data berhasil di simpan!'
+            'message'   => 'Data berhasil disimpan!'
         ];
 
         return response()->json($response, 200);
@@ -74,25 +73,27 @@ class BidangStudiController extends Controller
     public function update(Request $request, $id)
     {
 
-        $bidang_studi = BidangStudi::findOrFail($id);
+        $kompkeah = KompetensiKeahlian::findOrFail($id);
 
         $custom_message = [
             'required'  => 'Bidang :attribute harus diisi',
-            'unique'    => 'Bidang :attribute sudah terdaftar'
+            'unique'    => 'Bidang :attribute sudah terdaftar',
         ];
 
         $this->validate($request, [
-            'kode'  => 'required|unique:bidang_studis,kode,'.$bidang_studi->id,
-            'nama'  => 'required|unique:bidang_studis,nama,'.$bidang_studi->id
+            'kode'  => 'required|unique:kompetensi_keahlians,kode,'.$kompkeah->id,
+            'bidang_id' => 'required',
+            'nama'  => 'required|unique:kompetensi_keahlians,nama,'.$kompkeah->id
         ], $custom_message);
 
-        $bidang_studi->kode = $request->kode;
-        $bidang_studi->nama = $request->nama;
-        $bidang_studi->save();
+        $kompkeah->kode = $request->kode;
+        $kompkeah->bidang_id = $request->bidang_id;
+        $kompkeah->nama = $request->nama;
+        $kompkeah->save();
 
         $response = [
             'success'   => true,
-            'message'   => 'Data berhasil di ubah!'
+            'message'   => 'Data berhasil di perbarui!'
         ];
 
         return response()->json($response, 200);
@@ -106,7 +107,7 @@ class BidangStudiController extends Controller
      */
     public function destroy($id)
     {
-        $bidang_studi = BidangStudi::findOrFail($id)->delete();
+        $kompkeah = KompetensiKeahlian::findOrFail($id)->delete();
 
         return ['message' => 'Data berhasil dihapus permanen!'];
     }

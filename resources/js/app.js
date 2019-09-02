@@ -30,6 +30,8 @@ let routes = [
     { path: '/admin/home', component: require('./components/ExampleComponent.vue').default },
     { path: '/admin/profile', component: require('./components/ProfileComponent.vue').default },
     { path: '/admin/bidang-studi', component: require('./components/Penilaian/BidangStudiComponent.vue').default },
+    { path: '/admin/kompetensi-keahlian', component: require('./components/Penilaian/KompetensiKeahlianComponent.vue').default },
+    { path: '/admin/siswa', component: require('./components/Penilaian/SiswaComponent.vue').default },
   ]
 
 const router = new VueRouter({

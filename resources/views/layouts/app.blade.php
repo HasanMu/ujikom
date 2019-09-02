@@ -43,6 +43,12 @@
                         <li class="nav-item">
                             <router-link class="nav-link" to="/admin/bidang-studi">{{ __('Bidang Studi') }}</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/admin/kompetensi-keahlian">{{ __('Kompetensi Keahlian') }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/admin/siswa">{{ __('Siswa') }}</router-link>
+                        </li>
                         @endrole
                     </ul>
 

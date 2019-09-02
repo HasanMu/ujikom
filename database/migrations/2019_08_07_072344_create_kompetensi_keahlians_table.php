@@ -17,7 +17,7 @@ class CreateKompetensiKeahliansTable extends Migration
             $table->bigIncrements('id');
             $table->string('kode')->unique();
             $table->unsignedBigInteger('bidang_id');
-            $table->string('nama');
+            $table->string('nama')->unique();
 
             $table->foreign('bidang_id')->references('id')->on('bidang_studis');
             $table->timestamps();

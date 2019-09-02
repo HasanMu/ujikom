@@ -6,7 +6,7 @@
                     <div class="card-header text-white bg-dark">
                         <div class="d-flex bd-highlight mb-10">
                             <div class="mr-auto p-2 bd-highlight">
-                                <b>Data Bidang Studi</b>
+                                <b>Data Kompetensi Keahlian</b>
                             </div>
                             <div class="p-2 bd-highlight">
                                 <button type="button" class="btn btn-light btn-sm" @click="addModal()">
@@ -23,19 +23,21 @@
                                 <tr>
                                     <th scope="col">Kode</th>
                                     <th scope="col">Nama</th>
+                                    <th scope="col">Bidang Studi</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="user in users" :key="user.id">
-                                    <td>{{ user.kode }}</td>
-                                    <td>{{ user.nama }}</td>
+                                <tr v-for="kk in kompkeah" :key="kk.id">
+                                    <td>{{ kk.kode }}</td>
+                                    <td>{{ kk.bidangstudi.nama }}</td>
+                                    <td>{{ kk.nama }}</td>
                                     <td>
-                                        <a href="javascript:void(0)" @click="editModal(user)" title="Edit Data">
+                                        <a href="javascript:void(0)" @click="editModal(kk)" title="Edit Data">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                          /
-                                        <a href="javascript:void(0)" @click="deleteBidangStudi(user.id)" data-toggle="tooltip" title="Hapus Data" style="color: red;">
+                                        <a href="javascript:void(0)" @click="deleteBidangStudi(kk.id)" data-toggle="tooltip" title="Hapus Data" style="color: red;">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>
@@ -58,7 +60,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
-                    <form @submit.prevent="editMode ? updateBidangStudi() : createBidangStudi()">
+                    <form @submit.prevent="editMode ? updateKompKeah() : createKompKeah()">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Kode</label>
@@ -66,6 +68,18 @@
                                     placeholder="Masukkan Kode"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('kode') }">
                                 <has-error :form="form" field="kode"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Bidang Studi</label>
+                                <select v-model="form.bidang_id" name="bidang_id"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('bidang_id') }">
+
+                                    <option v-for="bd in bidang_studi" :key="bd.id" :value="bd.id">
+                                    {{ bd.nama }}
+                                    </option>
+
+                                </select>
+                                <has-error :form="form" field="bidang_id"></has-error>
                             </div>
                             <div class="form-group">
                                 <label>Nama</label>
@@ -97,34 +111,51 @@
 
         data() {
             return {
-                users: [],
+                kompkeah: [],
+                bidang_studi: [],
                 editMode: true,
                 form: new Form({
                     id: '',
                     kode: '',
+                    bidang_id: '',
                     nama: ''
                 })
             }
         },
 
         created () {
+            this.getKompKeah();
             this.getBidangStudi();
             Fire.$on('afterCreate', () => {
+                this.getKompKeah();
                 this.getBidangStudi();
             });
         },
 
         methods: {
-            // Mendapatkan semua data bidang studi
-            getBidangStudi () {
-                axios.get('/api/bidang-studi')
+            // Mendapatkan semua data kompetensi keahlian
+            getKompKeah () {
+                axios.get('/api/kompetensi-keahlian')
                 .then((res) => {
-                    this.users = res.data.data;
+                    this.kompkeah = res.data;
                     // console.log(res.data);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
+            },
+
+            // Mendapatkan semua data bidang studi
+            getBidangStudi () {
+                axios.get('/api/bidang-studis')
+                .then((res) => {
+                    this.bidang_studi = res.data;
+                    console.log(res);
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
             },
 
             // Menampilkan modal tambah data
@@ -137,9 +168,9 @@
             },
 
             // Mengirim permintaan untuk tambah data
-            createBidangStudi () {
+            createKompKeah () {
                 this.$Progress.start();
-                this.form.post('/api/bidang-studi')
+                this.form.post('/api/kompetensi-keahlian')
                 .then((res) => {
                     Fire.$emit('afterCreate');
                     $('#modal').modal('hide');
@@ -171,9 +202,9 @@
             },
 
             // Mengirim permintaan untuk ubah data
-            updateBidangStudi(id) {
+            updateKompKeah(id) {
                 // console.log('Update bidang studi');
-                this.form.put('/api/bidang-studi/'+this.form.id)
+                this.form.put('/api/kompetensi-keahlian/'+this.form.id)
                 .then((res) => {
                     Fire.$emit('afterCreate');
                     $('#modal').modal('hide');
@@ -203,7 +234,7 @@
                     }).then((result) => {
                     if (result.value) {
                         this.$Progress.start();
-                        this.form.delete('/api/bidang-studi/'+id)
+                        this.form.delete('/api/kompetensi-keahlian/'+id)
                         .then((res) => {
                             Swal.fire(
                                 'Berhasil!',
