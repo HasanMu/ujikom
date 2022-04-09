@@ -25,7 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "sweetalert2": "^8.15.3",
         "vform": "^1.0.1",
         "vue-progressbar": "^0.7.5",
